@@ -12,7 +12,7 @@ const noteSchema = z.object({
 
 type TabType = 'note' | 'checklist' | 'idea';
 
-const IDEA_COLORS = ['#FFD6E0', '#FFE8CC', '#D4F1C0', '#CCE5FF', '#E8CCFF'];
+const IDEA_COLORS = ['#7C3AED', '#DB2777', '#059669', '#2563EB', '#D97706'];
 
 export default function NuevaNotaScreen() {
     const theme = useTheme();
