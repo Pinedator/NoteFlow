@@ -17,6 +17,7 @@ export default function NotaDetailScreen() {
   );
 
   const handleDelete = () => {
+    console.log('HANDLE DELETE CALLED');
     Alert.alert('Eliminar nota', '¿Seguro que quieres eliminarla?', [
       { text: 'Cancelar', style: 'cancel' },
       {

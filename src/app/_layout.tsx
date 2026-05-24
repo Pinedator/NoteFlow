@@ -8,7 +8,14 @@ export default function RootLayout() {
 
   return (
     <PaperProvider theme={theme}>
-      <Stack screenOptions={{ headerShown: false }} />
+      <Stack>
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="nueva-nota"
+          options={{ presentation: 'modal', headerShown: false }}
+        />
+      </Stack>
     </PaperProvider>
   );
 }

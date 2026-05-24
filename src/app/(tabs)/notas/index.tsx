@@ -1,7 +1,6 @@
-import { FlashList } from '@shopify/flash-list';
 import * as Haptics from 'expo-haptics';
 import { router } from 'expo-router';
-import { Alert, StyleSheet, View } from 'react-native';
+import { Alert, FlatList, StyleSheet, View } from 'react-native';
 import { FAB, Text, useTheme } from 'react-native-paper';
 import NoteCard from '../../../components/items/NoteCard';
 import { Note, useNotesStore } from '../../../store/useNotesStore';
@@ -29,22 +28,20 @@ export default function NotasScreen() {
       <Text variant="headlineMedium" style={[styles.title, { color: theme.colors.onBackground }]}>
         Notas
       </Text>
-      <FlashList
-        data={notes}
-        // @ts-ignore
-        estimatedItemSize={120}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }: { item: Note }) => (
-          <NoteCard
-            note={item}
-            onPress={() => router.push(`/(tabs)/notas/${item.id}` as any)}
-            onDelete={() => handleDelete(item.id)}
-          />
-        )}
-        ListEmptyComponent={
-          <Text style={styles.empty}>No hay notas aún</Text>
-        }
-      />
+      <FlatList
+  data={notes}
+  keyExtractor={(item) => item.id}
+  renderItem={({ item }: { item: Note }) => (
+    <NoteCard
+      note={item}
+      onPress={() => router.push(`/(tabs)/notas/${item.id}` as any)}
+      onDelete={() => handleDelete(item.id)}
+    />
+  )}
+  ListEmptyComponent={
+    <Text style={styles.empty}>No hay notas aún</Text>
+  }
+/>
       <FAB
         icon="plus"
         style={[styles.fab, { backgroundColor: theme.colors.primary }]}

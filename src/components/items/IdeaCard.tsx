@@ -1,5 +1,6 @@
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 import { Chip, Text, useTheme } from 'react-native-paper';
+import Animated, { FadeInDown, FadeOutLeft } from 'react-native-reanimated';
 import { IdeaNote } from '../../store/useNotesStore';
 
 interface Props {
@@ -12,23 +13,25 @@ export default function IdeaCard({ idea, onPress, onDelete }: Props) {
   const theme = useTheme();
 
   return (
-    <TouchableOpacity
-      onPress={onPress}
-      style={[styles.card, { backgroundColor: idea.color, borderColor: theme.colors.outlineVariant }]}
-    >
-      <Text variant="titleMedium" style={{ color: theme.colors.onSurface }}>{idea.title}</Text>
-      <View style={styles.tags}>
-        {idea.tags.map((tag) => (
-          <Chip key={tag} compact style={styles.chip}>{tag}</Chip>
-        ))}
-      </View>
-      <Text variant="labelSmall" style={{ color: theme.colors.onSurfaceVariant, marginTop: 8 }}>
-        {new Date(idea.createdAt).toLocaleDateString()}
-      </Text>
-      <TouchableOpacity onPress={onDelete} style={styles.delete}>
-        <Text variant="labelSmall" style={{ color: theme.colors.error }}>Eliminar</Text>
-      </TouchableOpacity>
-    </TouchableOpacity>
+    <Animated.View entering={FadeInDown} exiting={FadeOutLeft}>
+      <Pressable
+        onPress={onPress}
+        style={[styles.card, { backgroundColor: idea.color, borderColor: theme.colors.outlineVariant }]}
+      >
+        <Text variant="titleMedium" style={{ color: theme.colors.onSurface }}>{idea.title}</Text>
+        <View style={styles.tags}>
+          {idea.tags.map((tag) => (
+            <Chip key={tag} compact style={styles.chip}>{tag}</Chip>
+          ))}
+        </View>
+        <Text variant="labelSmall" style={{ color: theme.colors.onSurfaceVariant, marginTop: 8 }}>
+          {new Date(idea.createdAt).toLocaleDateString()}
+        </Text>
+        <Pressable onPress={onDelete} style={styles.delete}>
+          <Text variant="labelSmall" style={{ color: theme.colors.error }}>Eliminar</Text>
+        </Pressable>
+      </Pressable>
+    </Animated.View>
   );
 }
 
