@@ -1,6 +1,7 @@
+import { FlashList } from '@shopify/flash-list';
 import * as Haptics from 'expo-haptics';
 import { router } from 'expo-router';
-import { Alert, FlatList, StyleSheet, View } from 'react-native';
+import { Alert, StyleSheet, View } from 'react-native';
 import { FAB, Searchbar, Text, useTheme } from 'react-native-paper';
 import ChecklistCard from '../../../components/items/ChecklistCard';
 import { useSearch } from '../../../hooks/useSearch';
@@ -36,8 +37,10 @@ export default function ChecklistsScreen() {
         onChangeText={setQuery}
         style={styles.search}
       />
-      <FlatList
+      <FlashList
         data={filteredChecklists}
+        // @ts-ignore
+        estimatedItemSize={120}
         keyExtractor={(item) => item.id}
         renderItem={({ item }: { item: ChecklistNote }) => (
           <ChecklistCard
