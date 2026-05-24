@@ -22,4 +22,3 @@ pendientes y no olvidar recordatorios importantes.
 - Marcar tareas como completadas
 - Notificaciones para recordatorios
 - Sincronización en la nube
-- Modo oscuro
