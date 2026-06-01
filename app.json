@@ -18,7 +18,7 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "package": "com.pinedator.NoteFlow"
+      "package": "com.pinedator.noteflow"
     },
     "web": {
       "output": "static",
