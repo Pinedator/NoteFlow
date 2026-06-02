@@ -1,16 +1,22 @@
 import { FlashList } from '@shopify/flash-list';
 import * as Haptics from 'expo-haptics';
 import { router } from 'expo-router';
+import { useEffect } from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
-import { FAB, Searchbar, Text, useTheme } from 'react-native-paper';
+import { ActivityIndicator, FAB, Searchbar, Text, useTheme } from 'react-native-paper';
 import NoteCard from '../../../components/items/NoteCard';
 import { useSearch } from '../../../hooks/useSearch';
 import { Note, useNotesStore } from '../../../store/useNotesStore';
 
 export default function NotasScreen() {
-  const { deleteNote } = useNotesStore();
+  const { deleteNote, fetchNotes, isLoading } = useNotesStore();
   const theme = useTheme();
   const { query, setQuery, filteredNotes } = useSearch();
+
+  useEffect(() => {
+    console.log('useEffect ejecutado');
+    fetchNotes();
+  }, []);
 
   const handleDelete = (id: string) => {
     Alert.alert('Eliminar nota', '¿Seguro que quieres eliminarla?', [
@@ -37,22 +43,26 @@ export default function NotasScreen() {
         onChangeText={setQuery}
         style={styles.search}
       />
-      <FlashList
-        data={filteredNotes}
-        // @ts-ignore
-        estimatedItemSize={120}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }: { item: Note }) => (
-          <NoteCard
-            note={item}
-            onPress={() => router.push(`/(tabs)/notas/${item.id}` as any)}
-            onDelete={() => handleDelete(item.id)}
-          />
-        )}
-        ListEmptyComponent={
-          <Text style={styles.empty}>No hay notas aún</Text>
-        }
-      />
+      {isLoading ? (
+        <ActivityIndicator style={{ marginTop: 40 }} />
+      ) : (
+        <FlashList
+          data={filteredNotes}
+          // @ts-ignore
+          estimatedItemSize={120}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }: { item: Note }) => (
+            <NoteCard
+              note={item}
+              onPress={() => router.push(`/(tabs)/notas/${item.id}` as any)}
+              onDelete={() => handleDelete(item.id)}
+            />
+          )}
+          ListEmptyComponent={
+            <Text style={styles.empty}>No hay notas aún</Text>
+          }
+        />
+      )}
       <FAB
         icon="plus"
         style={[styles.fab, { backgroundColor: theme.colors.primary }]}

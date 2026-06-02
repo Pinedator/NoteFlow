@@ -23,9 +23,9 @@ export default function NoteCard({ note, onPress, onDelete }: Props) {
           {note.content}
         </Text>
         <Text variant="labelSmall" style={{ color: theme.colors.onSurfaceVariant, marginTop: 8 }}>
-          {new Date(note.createdAt).toLocaleDateString()}
+          {new Date(note.created_at).toLocaleDateString()}
         </Text>
-        <Pressable onPress={() => { console.log('DELETE PRESSED'); onDelete(); }} style={styles.delete}>
+        <Pressable onPress={onDelete} style={styles.delete}>
           <Text variant="labelSmall" style={{ color: theme.colors.error }}>Eliminar</Text>
         </Pressable>
       </Pressable>
